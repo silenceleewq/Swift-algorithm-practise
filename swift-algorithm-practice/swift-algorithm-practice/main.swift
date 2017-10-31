@@ -29,16 +29,17 @@ var arr = [1, 2, 3, 4, 5]
 //    print(i)
 //}
 
-var curr = arr
-let curr2 = arr
-var str = "1w"
+//var curr = arr
+//let curr2 = arr
+//var str = "1w"
+//
+//withUnsafePointer(to: &arr) { (p) in
+//    print(p)
+//    print(type(of: p))
+//}
+//
+//withUnsafePointer(to: &curr) {(p) in
+//    print(p)
+//    print(type(of: p))
+//}
 
-withUnsafePointer(to: &arr) { (p) in
-    print(p)
-    print(type(of: p))
-}
-
-withUnsafePointer(to: &curr) {(p) in
-    print(p)
-    print(type(of: p))
-}

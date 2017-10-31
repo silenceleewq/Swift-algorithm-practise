@@ -9,11 +9,11 @@
 public struct Stack<T> {
     fileprivate var container = [T]()
     
-    public func count() -> Int {
+    public var count: Int {
         return container.count
     }
     
-    public func isEmpty() -> Bool {
+    public var isEmpty: Bool {
         return container.isEmpty
     }
     
@@ -22,10 +22,14 @@ public struct Stack<T> {
     }
     
     public mutating func pop() -> T? {
-        return container.popLast()
+        if isEmpty {
+            return nil
+        } else {
+            return container.popLast()
+        }
     }
     
-    public func top() -> T? {
+    public var top: T? {
         return container.last
     }
 }
