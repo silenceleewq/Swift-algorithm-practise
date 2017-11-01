@@ -112,6 +112,8 @@ class BinarySearchTree<T: Comparable> {
         //那么该行代码的值会作为返回值直接返回,即便不写return.
         return map { $0 }
     }
+    
+    
 }
 
 extension BinarySearchTree: CustomStringConvertible {
@@ -161,6 +163,90 @@ extension BinarySearchTree {
     }
 }
 
+//MARK: - Deleting items
+extension BinarySearchTree {
+    
+    @discardableResult public func remove() -> BinarySearchTree? {
+        let replacement: BinarySearchTree?
+        
+        //Replacement for current node can be either biggest one on the left
+        //smallest one on the right, whichever is not nil
+        if let right = right {
+            replacement = right.minimum()
+        } else if let left = left {
+            replacement = left.maximum()
+        } else {
+            replacement = nil
+        }
+        //当replacement为nil的时候,那么remove方法就不会再执行了.
+        replacement?.remove()
+        
+        //place the replacement on current node's position
+        replacement?.right = right
+        replacement?.left = left
+        right?.parent = replacement
+        left?.parent = replacement
+        reconnectParentToNode(node: replacement)
+        
+        //The current node is no longer part of the tree, so clear it up
+        parent = nil
+        left = nil
+        right = nil
+        
+        return replacement
+    }
+    
+    private func reconnectParentToNode(node: BinarySearchTree?) {
+        if let parent = parent {
+            if isLeftChild {
+                parent.left = node
+            } else {
+                parent.right = node
+            }
+        }
+        node?.parent = parent
+    }
+}
+
+//MARK: - Searching
+extension BinarySearchTree {
+    
+    //mine code
+//    func minimum() -> BinarySearchTree {
+//        var node: BinarySearchTree? = self
+//        while node != nil {
+//            node = node?.left
+//        }
+//        return node!
+//    }
+    
+    //others code
+    func minimum() -> BinarySearchTree {
+        var node = self
+        while let next = node.left {
+            node = next
+        }
+        return node
+    }
+    
+    //mine code
+//    func maximum() -> BinarySearchTree {
+//        var node: BinarySearchTree? = self
+//        while node != nil {
+//            node = node?.right
+//        }
+//        return node!
+//    }
+
+    // other code
+    func maximum() -> BinarySearchTree {
+        var node = self
+        while let next = node.left {
+            node = next
+        }
+        return node
+    }
+}
 
 
 

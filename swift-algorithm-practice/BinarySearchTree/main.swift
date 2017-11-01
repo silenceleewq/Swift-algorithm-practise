@@ -77,12 +77,15 @@ print(binaryTree.searchByLoops(value: 6) ?? 0)
 //}
 
 let ba = binaryTree.toArray()
-print(ba)
 
+let deletTestBT = BinarySearchTree(array: [20, 10, 2, 1,3, 16, 15, 12, 13, 17, 25, 21])
+print("deleteTestBT: "+deletTestBT.description)
+let keyBTN = deletTestBT.search(value: 10)
+keyBTN?.remove()
+//print("after remove node5" + deletTestBT.description)
 
-
-
-
+let s = "hello \nbb"
+print(s)
 
 
 
