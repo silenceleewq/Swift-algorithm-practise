@@ -77,7 +77,7 @@ let ba = binaryTree.toArray()
 let deletTestBT = BinarySearchTree(array: [20, 10, 2, 1,3, 16, 15, 12, 13, 17, 25, 21])
 //print("deleteTestBT: "+deletTestBT.description)
 let keyBTN = deletTestBT.search(value: 10)
-keyBTN?.remove()
+//keyBTN?.remove()
 //print("after remove node5" + deletTestBT.description)
 
 //print("Tree Height: \(binaryTree.height())")
@@ -85,11 +85,18 @@ let key = binaryTree.search(value: 7)
 //print("successor: \(key?.predecessor()?.value ?? 0)")
 
 if let node1 = binaryTree.search(value: 1) {
-    print(binaryTree.isBST(minValue: Int.min, maxValue: Int.max))
-    print(node1.insert(value: 100))
-    print(node1.search(value: 100))
-    print(binaryTree.isBST(minValue: Int.min, maxValue: Int.max))
+    //print(binaryTree.isBST(minValue: Int.min, maxValue: Int.max))
+    //print(node1.insert(value: 100))
+    //print(node1.search(value: 100))
+    //print(binaryTree.isBST(minValue: Int.min, maxValue: Int.max))
 }
+
+//let bt = BinarySearchTree(array: [20, 10, 7, 4, 8, 17, 11, 12, 13, 14, 19, 50, 51, 52, 53, 54])
+let bt = BinarySearchTree(array: [20, 10, 7, 4, 8, 17, 11, 12, 13, 14, 19, 50, 40, 30, 38, 37])
+let node10 = bt.search(value: 20)
+let rnode = node10?.remove()
+print(rnode)
+print("bt: \(bt)")
 
 
 

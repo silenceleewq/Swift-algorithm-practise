@@ -67,25 +67,7 @@ class BinarySearchTree<T: Comparable> {
         return (left?.count ?? 0) + 1 + (right?.count ?? 0)
     }
     
-    public func insert(value: T) {
-        if value < self.value {
-            if let left = left {
-                left.insert(value: value)
-            } else {
-                //这里应该用left,因为走到这一步说明该结点的left并没有子节点
-                left = BinarySearchTree(value: value)
-                left?.parent = self
-            }
-        } else {
-            if let right = right {
-                right.insert(value: value)
-            } else {
-                //这里应该用right,因为走到这一步说明该结点的right并没有子节点
-                right = BinarySearchTree(value: value)
-                right?.parent = self
-            }
-        }
-    }
+    
     
     public func search(value: T) -> BinarySearchTree? {
         if value < self.value {
@@ -118,6 +100,30 @@ class BinarySearchTree<T: Comparable> {
     }
     
     
+}
+
+//MARK: - Adding items
+extension BinarySearchTree {
+    
+    public func insert(value: T) {
+        if value < self.value {
+            if let left = left {
+                left.insert(value: value)
+            } else {
+                //这里应该用left,因为走到这一步说明该结点的left并没有子节点
+                left = BinarySearchTree(value: value)
+                left?.parent = self
+            }
+        } else {
+            if let right = right {
+                right.insert(value: value)
+            } else {
+                //这里应该用right,因为走到这一步说明该结点的right并没有子节点
+                right = BinarySearchTree(value: value)
+                right?.parent = self
+            }
+        }
+    }
 }
 
 extension BinarySearchTree: CustomStringConvertible {
@@ -170,6 +176,11 @@ extension BinarySearchTree {
 //MARK: - Deleting items
 extension BinarySearchTree {
     
+    
+    /*
+     Deletes a node from the tree.
+     Returns the node that has replae this removed one (or nil if this was a leaf node)
+     */
     @discardableResult public func remove() -> BinarySearchTree? {
         let replacement: BinarySearchTree?
         
@@ -182,14 +193,22 @@ extension BinarySearchTree {
         } else {
             replacement = nil
         }
+//        if let left = left {
+//            replacement = left.maximum()
+//        } else if let right = right {
+//            replacement = right.minimum()
+//        } else {
+//            replacement = nil
+//        }
+        print("remove---self: \(self.value) --- replacement: \(replacement?.value)")
         //当replacement为nil的时候,那么remove方法就不会再执行了.
         replacement?.remove()
         
         //place the replacement on current node's position
-        replacement?.right = right
-        replacement?.left = left
-        right?.parent = replacement
-        left?.parent = replacement
+        replacement?.right = self.right
+        replacement?.left = self.left
+        self.right?.parent = replacement
+        self.left?.parent = replacement
         reconnectParentToNode(node: replacement)
         
         //The current node is no longer part of the tree, so clear it up
