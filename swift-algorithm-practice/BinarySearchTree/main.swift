@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+//MARK: - basic Tree Test
 let tree = TreeNode<String>(value: "beverages")
 
 let hotNode = TreeNode<String>(value: "hot")
@@ -51,4 +53,47 @@ if let n = tree.search("cocoa") {
     
     print(n.value)
 }
+
+//MARK: - Binary Tree Search Test  ---  Class Version
+let binaryTree = BinarySearchTree(array: [7, 2, 5, 10, 9, 1])
+
+print(binaryTree)
+print(binaryTree.search(value: 3))
+
+//MARK: - Test Binary Tree Search Function
+print(binaryTree.searchByLoops(value: 5) ?? 0)
+print(binaryTree.searchByLoops(value: 2) ?? 0)
+print(binaryTree.searchByLoops(value: 7) ?? 0)
+print(binaryTree.searchByLoops(value: 6) ?? 0)
+
+// conclusion
+/*
+ in Swift, that is conveniently done with optional chaining;
+ when you write left?.search(value) it automatically returns nil if left is nil. There is no need to explicitly check for this with an if statement.
+ */
+
+//binaryTree.traverseInOrder { (value) in
+//    print(value)
+//}
+
+let ba = binaryTree.toArray()
+print(ba)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
