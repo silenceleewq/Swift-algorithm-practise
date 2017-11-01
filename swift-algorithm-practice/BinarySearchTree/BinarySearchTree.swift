@@ -11,7 +11,11 @@ import Cocoa
 class BinarySearchTree<T: Comparable> {
     fileprivate(set) public var value: T
     fileprivate(set) public var parent: BinarySearchTree?
+    
+    ///left subNode
     fileprivate(set) public var left: BinarySearchTree?
+    
+    /// right subNode
     fileprivate(set) public var right: BinarySearchTree?
     
     //initial
@@ -241,16 +245,88 @@ extension BinarySearchTree {
     // other code
     func maximum() -> BinarySearchTree {
         var node = self
-        while let next = node.left {
+        while let next = node.right {
             node = next
         }
         return node
     }
 }
 
+//MARK: - Depth and Height
 
+extension BinarySearchTree {
+    //the height of a node is the distance to the lowest leaf.
+    public func height() -> Int {
+        if isLeaf {
+            return 0
+        } else {
+            return 1 + max(left?.height() ?? 0, right?.height() ?? 0)
+        }
+    }
+    
+    //the depth of a node is the distance to the root.
+    public func depth() -> Int {
+        var node = self
+        var edges = 0;
+        while let parent = node.parent {
+            node = parent
+            edges += 1
+        }
+        return edges
+    }
+}
 
+//MARK: - Predecessor and successor
+extension BinarySearchTree {
+    public func predecessor() -> BinarySearchTree <T>? {
+        
+        if let left = left {
+            return left.maximum()
+        } else {
+            var node = self //因为self是不可修改的,所以需要用一个var修饰的node去引用self
+            while let parent = node.parent {
+                if parent.value < value { //parent.value <value 这种情况下,node即self是处在right上.
+                    return parent
+                }
+                node = parent //如果程序走到这一步,那么说明该结点是在left位置上,因为left位置的结点值永远小于parent的值
+            }
+            return nil //如果走到这里,即没有parent,那么它也就不存在什么prodecessor.
+        }
+    }
+    
+    public func successor() -> BinarySearchTree<T>? {
+        
+        if let right = right {
+            //如果该node有right subNode那么右子树最小值就是当前结点的successor
+            //因为一个结点的右子树所有的结点都比该结点的值大,所以右子树的最小值就是该结点的successor.
+            return right.minimum()
+            
+        } else {
+            //同理 predecessor
+            var node = self
+            while let parent = node.parent {
+                if value < parent.value {
+                    return parent
+                }
+                node = parent
+            }
+            return nil
+        }
+    }
+}
 
+/*Is this binary tree a valid binary search tree?*/
+extension BinarySearchTree {
+    
+    //check whether a tree is a valid binary search tree.
+    public func isBST(minValue: T, maxValue: T) -> Bool {
+        if value < minValue || value > maxValue {return false}
+        let leftBST = left?.isBST(minValue: minValue, maxValue: value) ?? true
+        let rightBST = right?.isBST(minValue: value, maxValue: maxValue) ?? true
+        return leftBST && rightBST
+    }
+    
+}
 
 
 

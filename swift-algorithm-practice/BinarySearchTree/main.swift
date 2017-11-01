@@ -49,22 +49,18 @@ sodaNode.addChild(bitterLemonNode)
 
 //print(tree)
 
-if let n = tree.search("cocoa") {
-    
-    print(n.value)
-}
 
 //MARK: - Binary Tree Search Test  ---  Class Version
 let binaryTree = BinarySearchTree(array: [7, 2, 5, 10, 9, 1])
 
-print(binaryTree)
-print(binaryTree.search(value: 3))
+//print(binaryTree)
+//print(binaryTree.search(value: 3))
 
 //MARK: - Test Binary Tree Search Function
-print(binaryTree.searchByLoops(value: 5) ?? 0)
-print(binaryTree.searchByLoops(value: 2) ?? 0)
-print(binaryTree.searchByLoops(value: 7) ?? 0)
-print(binaryTree.searchByLoops(value: 6) ?? 0)
+//print(binaryTree.searchByLoops(value: 5) ?? 0)
+//print(binaryTree.searchByLoops(value: 2) ?? 0)
+//print(binaryTree.searchByLoops(value: 7) ?? 0)
+//print(binaryTree.searchByLoops(value: 6) ?? 0)
 
 // conclusion
 /*
@@ -73,24 +69,27 @@ print(binaryTree.searchByLoops(value: 6) ?? 0)
  */
 
 //binaryTree.traverseInOrder { (value) in
-//    print(value)
+//    //print(value)
 //}
 
 let ba = binaryTree.toArray()
 
 let deletTestBT = BinarySearchTree(array: [20, 10, 2, 1,3, 16, 15, 12, 13, 17, 25, 21])
-print("deleteTestBT: "+deletTestBT.description)
+//print("deleteTestBT: "+deletTestBT.description)
 let keyBTN = deletTestBT.search(value: 10)
 keyBTN?.remove()
 //print("after remove node5" + deletTestBT.description)
 
-let s = "hello \nbb"
-print(s)
+//print("Tree Height: \(binaryTree.height())")
+let key = binaryTree.search(value: 7)
+//print("successor: \(key?.predecessor()?.value ?? 0)")
 
-
-
-
-
+if let node1 = binaryTree.search(value: 1) {
+    print(binaryTree.isBST(minValue: Int.min, maxValue: Int.max))
+    print(node1.insert(value: 100))
+    print(node1.search(value: 100))
+    print(binaryTree.isBST(minValue: Int.min, maxValue: Int.max))
+}
 
 
 
