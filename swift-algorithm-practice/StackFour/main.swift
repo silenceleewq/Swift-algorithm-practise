@@ -8,5 +8,12 @@
 
 import Foundation
 
-print("Hello, World!")
+var s = Stack<Int>()
+s.push(element: 10)
+s.push(element: 20)
+s.push(element: 30)
+print("s = \(s.pop())")
+print("s = \(s.pop())")
+print("s = \(s.pop())")
+print("s = \(s.pop())")
 
